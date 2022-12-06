@@ -21,27 +21,35 @@ module.exports = {
 		
 		  // ask quesion w/ buttons
 
-			await interaction.reply({content: 'Wich one sounds better? ',ephemeral: true, components: [row]});
+			const message = await interaction.reply({content: 'Wich one sounds better? ',ephemeral: true, components: [row]});
+			console.log(interaction);
 			
+		// collect their response
+		
+		const collector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
+
+		collector.on('collect', async i => {
 			
-			// collect their response
-
-			 const collector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
-
-collector.on('collect', i => {
-	if (i.user.id === interaction.user.id) {
-		i.reply(`${i.user.id} clicked on the ${i.customId} button.`);
-	} else {
-		i.reply({ content: `These buttons aren't for you!`, ephemeral: true });
-	}
-});
-
-collector.on('end', collected => {
-	console.log(`Collected ${collected.size} interactions.`);
-});
+			// edit accordingly 
+				await i.deferUpdate();
+				switch(i.customId) {
+					case 'primary':
+						await i.editReply({ content: 'poggers', components: [] });
+						break;
+					case 'secondary':
+						await i.editReply({ content: 'pogging', components: [] });
+						break;
+				}
+				
+			
+		});
+		
+		collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+		
+		
+			
       
       
-      // edit messsage accordingly 
       
       
       	
