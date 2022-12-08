@@ -19,7 +19,7 @@ module.exports = {
 				  .setStyle(ButtonStyle.Secondary),
 			);
 		
-		  // ask quesion w/ buttons
+		// ask quesion w/ buttons
 
 			const message = await interaction.reply({content: 'Wich one sounds better? ',ephemeral: true, components: [row]});
 			console.log(interaction);
